@@ -1,0 +1,21 @@
+{
+  "name": "PhoneCom/mason-php",
+  "description": "PHP library for generating Mason hypermedia documents",
+  "license": "MIT",
+  "keywords": ["mason"],
+  "authors": [
+    {
+      "name": "Curtis Farnham",
+      "email": "cfarnham@phone.com"
+    }
+  ],
+  "require": {},
+  "require-dev": {
+    "phpunit/phpunit": "4.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "PhoneCom\\Mason\\": "src"
+    }
+  }
+}
