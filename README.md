@@ -73,4 +73,4 @@ Pull requests are welcome.
 
 ## License
 
-This project is released under the MIT License. Copyright (c) 2015 [Phone.com, Inc.](https://www.phone.com) See `LICENSE` for full text.
+This project is released under the MIT License. Copyright (c) 2015 [Phone.com, Inc.](https://www.phone.com) See `LICENSE` for full details.
