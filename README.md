@@ -48,7 +48,7 @@ This produces the following data structure:
 
 ## Motivation
 
-[Mason](https://github.com/JornWildt/Mason) is a Hypermedia RESTful API format first published in 2013 by [Jørn Wildt](https://github.com/JornWildt). It combines lessons learned from years of API implementations and close study of other competing formats such as Hal, Collection+JSON, and JSON-LD.  Each format has its strengths, but none had the desired balance of simplicity and features.
+[Mason](https://github.com/JornWildt/Mason) is a Hypermedia RESTful API format first published in 2013 by [Jørn Wildt](https://github.com/JornWildt). It combines lessons learned from years of API implementations and close study of other competing formats such as Hal, Collection+JSON, and JSON-LD.  Each format has its strengths, but none has the desired balance of simplicity and features.
 
 Mason-PHP was built to help promote Mason adoption within the PHP community, and to provide much needed tooling.
 
