@@ -1,5 +1,5 @@
 {
-  "name": "PhoneCom/mason-php",
+  "name": "phonecom/mason-php",
   "description": "PHP library for generating Mason hypermedia documents",
   "license": "MIT",
   "keywords": ["mason"],
