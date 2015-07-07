@@ -1,8 +1,14 @@
 ## Mason PHP
 
+[![Build Status](https://travis-ci.org/Phone-com/mason-php.svg?branch=master)](https://travis-ci.org/Phone-com/mason-php)
+[![Latest Stable Version](https://poser.pugx.org/phonecom/mason-php/v/stable)](https://packagist.org/packages/phonecom/mason-php)
+[![Total Downloads](https://poser.pugx.org/phonecom/mason-php/downloads)](https://packagist.org/packages/phonecom/mason-php)
+[![Latest Unstable Version](https://poser.pugx.org/phonecom/mason-php/v/unstable)](https://packagist.org/packages/phonecom/mason-php)
+[![License](https://poser.pugx.org/phonecom/mason-php/license)](https://packagist.org/packages/phonecom/mason-php)
+
 This project provides a PHP tool for building Hypermedia REST API's in [Mason](https://github.com/JornWildt/Mason) format.
 
-At present, it includes a set of Mason Builder classes for producing data structures that can be passed to `json_encode()` for producing Mason response bodies.
+At present, it includes a set of Mason Builder classes for producing data structures that can be passed to `json_encode()` for rendering Mason response bodies.
 
 ## Example
 
