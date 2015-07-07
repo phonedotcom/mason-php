@@ -21,7 +21,7 @@ $doc = new Document([
 
 $doc->addMetaProperty('@title', 'Oscar the Grouch')
     ->addProperty('clothing', 'Trash can')
-    ->addControl('ss:character', 'http://example.com/characters/oscar');
+    ->addControl('self', 'http://example.com/characters/oscar');
 
 echo json_encode($doc);
 ```
