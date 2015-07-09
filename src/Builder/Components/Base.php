@@ -82,28 +82,65 @@ abstract class Base
      * is useful for standardizing the sequence of properties across several documents and for keeping the more
      * important properties higher up.
      *
-     * @param array $order Preferred order of property names. Can include any Mason or custom property. Ordering will
+     * @param array $defaultOrder Preferred order of property names. Can include any Mason or custom property. Ordering will
      *                     be applied at all levels within the document. Properties that are not found at a given
      *                     level are gracefully ignored. Must include an element named "{data}". This is where all
      *                     unspecified properties will be placed. All such properties will maintain the same order as
      *                     they had before sorting.
      * @return $this
      */
-    public function sort(array $order)
+    public function sort(array $defaultOrder, array $controlsOrder = null, array $metaOrder = null, array $errorOrder = null)
     {
-        if (!in_array('{data}', $order)) {
-            throw new \InvalidArgumentException('Placeholder "{data}" not listed');
+        if ($defaultOrder && !in_array('{data}', $defaultOrder)) {
+            throw new \InvalidArgumentException('Placeholder "{data}" not listed in $defaultOrder');
+
+        } elseif ($controlsOrder && !in_array('{data}', $controlsOrder)) {
+            throw new \InvalidArgumentException('Placeholder "{data}" not listed in $controlsOrder');
+
+        } elseif ($metaOrder && !in_array('{data}', $metaOrder)) {
+            throw new \InvalidArgumentException('Placeholder "{data}" not listed in $metaOrder');
+
+        } elseif ($errorOrder && !in_array('{data}', $errorOrder)) {
+            throw new \InvalidArgumentException('Placeholder "{data}" not listed in $errorOrder');
         }
 
+        $controlsOrder || $controlsOrder = $defaultOrder;
+        $metaOrder || $metaOrder = $defaultOrder;
+        $errorOrder || $errorOrder = $defaultOrder;
+
+        $this->applySort('', $defaultOrder, $controlsOrder, $metaOrder, $errorOrder);
+
+        return $this;
+    }
+
+    private function applySort($name, array &$defaultOrder, array &$controlsOrder, array &$metaOrder, array &$errorOrder)
+    {
         $data = self::getPublicProperties($this);
         foreach ($data as $property => $value) {
             if ($value instanceof self) {
-                $value->sort($order);
+                $value->applySort($property, $defaultOrder, $controlsOrder, $metaOrder, $errorOrder);
 
             } elseif (is_array($value)) {
-                $this->sortArray($value, $order);
+                $this->sortArray($value, $defaultOrder, $controlsOrder, $metaOrder, $errorOrder);
             }
             unset($this->{$property});
+        }
+
+        switch ($name) {
+            case '@controls':
+                $order = &$controlsOrder;
+                break;
+
+            case '@meta':
+                $order = &$metaOrder;
+                break;
+
+            case '@error':
+                $order = &$errorOrder;
+                break;
+
+            default:
+                $order = &$defaultOrder;
         }
 
         $unorderedProperties = array_diff(array_keys($data), $order);
@@ -122,14 +159,14 @@ abstract class Base
         return $this;
     }
 
-    private function sortArray(array &$array, array &$order)
+    private function sortArray(array &$array, array &$defaultOrder, array &$controlsOrder, array &$metaOrder, array &$errorOrder)
     {
         foreach ($array as $property => &$value) {
             if ($value instanceof self) {
-                $value->sort($order);
+                $value->applySort($property, $defaultOrder, $controlsOrder, $metaOrder, $errorOrder);
 
             } elseif (is_array($value)) {
-                $this->sortArray($value, $order);
+                $this->sortArray($value, $defaultOrder, $controlsOrder, $metaOrder, $errorOrder);
             }
         }
     }
