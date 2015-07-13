@@ -5,9 +5,9 @@ use PhoneCom\Mason\Builder\Components\Hash;
 
 class ConcreteHash extends Hash
 {
-    public function setTable($table)
+    public function setTailgate($tailgate)
     {
-        $this->table = $table;
+        $this->tailgate = $tailgate;
         return $this;
     }
 }

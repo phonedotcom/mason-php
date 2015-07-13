@@ -1,6 +1,7 @@
 /vendor
 composer.lock
 /coverage
+/examples
 
 # IDE's
 .idea

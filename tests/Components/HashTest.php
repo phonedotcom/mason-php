@@ -12,8 +12,8 @@ class HashTest extends \PHPUnit_Framework_TestCase
     public function testCanSetPropertyViaSetter()
     {
         $obj = new ConcreteHash();
-        $obj->setProperty('table', 'This value');
-        $this->assertEquals('This value', $obj->table);
+        $obj->setProperty('tailgate', 'Purple');
+        $this->assertEquals('Purple', $obj->tailgate);
     }
 
     public function testCanSetCustomProperty()

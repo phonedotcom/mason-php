@@ -91,7 +91,7 @@ abstract class Base
      */
     public function sort(array $defaultOrder, array $controlsOrder = null, array $metaOrder = null, array $errorOrder = null)
     {
-        if ($defaultOrder && !in_array('{data}', $defaultOrder)) {
+        if (!in_array('{data}', $defaultOrder)) {
             throw new \InvalidArgumentException('Placeholder "{data}" not listed in $defaultOrder');
 
         } elseif ($controlsOrder && !in_array('{data}', $controlsOrder)) {
@@ -126,7 +126,15 @@ abstract class Base
             unset($this->{$property});
         }
 
-        switch ($name) {
+        // In PHP, when comparing an integer on the left to a string on the right, the string gets cast to an integer
+        // prior to comparison. This has the counter-intuitive effect with typical switch() statements that use strings
+        // for all the cases, and you run integer 0 through it, the first 'case' comparison evaluates to true. Doh!
+        // To prevent this, we need to make sure $name is a string when entering the switch below.
+        //
+        // For more discussion, see:
+        // http://stackoverflow.com/questions/2611932/php-5-2-12-interesting-switch-statement-bug-with-integers-and-strings
+
+        switch ((string)$name) {
             case '@controls':
                 $order = &$controlsOrder;
                 break;
@@ -161,9 +169,9 @@ abstract class Base
 
     private function sortArray(array &$array, array &$defaultOrder, array &$controlsOrder, array &$metaOrder, array &$errorOrder)
     {
-        foreach ($array as $property => &$value) {
+        foreach ($array as $index => &$value) {
             if ($value instanceof self) {
-                $value->applySort($property, $defaultOrder, $controlsOrder, $metaOrder, $errorOrder);
+                $value->applySort('', $defaultOrder, $controlsOrder, $metaOrder, $errorOrder);
 
             } elseif (is_array($value)) {
                 $this->sortArray($value, $defaultOrder, $controlsOrder, $metaOrder, $errorOrder);
