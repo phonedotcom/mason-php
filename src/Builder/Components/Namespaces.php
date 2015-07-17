@@ -12,6 +12,11 @@ class Namespaces extends Hash
     {
         if ($href instanceof MasonNamespace) {
             $namespace = $href;
+
+        } elseif (is_object($href)) {
+            $href = get_object_vars($href);
+            $namespace = new MasonNamespace($href['name']);
+
         } else {
             $namespace = new MasonNamespace($href);
         }

@@ -1,7 +1,6 @@
 <?php
 namespace PhoneCom\Mason\Builder;
 
-use PhoneCom\Mason\Builder\Components\Base;
 use PhoneCom\Mason\Builder\Components\Error;
 use PhoneCom\Mason\Builder\Components\MasonNamespace;
 use PhoneCom\Mason\Builder\Components\Meta;
@@ -9,6 +8,20 @@ use PhoneCom\Mason\Builder\Components\Namespaces;
 
 class Document extends Child
 {
+    /**
+     * @param object|array|Meta $meta Meta properties
+     * @return $this
+     */
+    public function setMeta($meta)
+    {
+        if (!$meta instanceof Meta) {
+            $meta = new Meta($meta);
+        }
+        $this->{'@meta'} = $meta;
+
+        return $this;
+    }
+
     /**
      * @param array $properties List of meta properties to add
      * @param bool $protected Whether to keep these properties when object is minimized
@@ -63,7 +76,7 @@ class Document extends Child
      * @param array $namespaces List of namespaces to add. Array items may be URLs or MasonNamespace instances
      * @return $this
      */
-    public function setNamespaces(array $namespaces)
+    public function setNamespaces($namespaces)
     {
         unset($this->{'@namespaces'});
 
@@ -102,6 +115,12 @@ class Document extends Child
      */
     public function setError($message, $properties = [], $now = null)
     {
+        if (is_object($message) || is_array($message)) {
+            $properties = (array)$message;
+            $message = $properties['@message'];
+            $now = @$properties['@time'];
+            unset($properties['@message'], $properties['@time']);
+        }
         $this->{'@error'} = new Error($message, $properties, $now);
 
         return $this;

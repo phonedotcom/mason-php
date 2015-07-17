@@ -15,8 +15,10 @@ class Error extends Child
         $this->setMessage($message);
         parent::__construct($properties);
 
-        $now || $now = microtime(true);
-        $this->setTime($now);
+        if (!isset($properties['@time'])) {
+            $now || $now = microtime(true);
+            $this->setTime($now);
+        }
     }
 
     /**
@@ -70,9 +72,17 @@ class Error extends Child
      */
     public function setTime($timestamp)
     {
-        $timestamp || $timestamp = microtime(true);
-        $fraction = $timestamp - floor($timestamp);
-        $this->{'@time'} = gmdate('Y-m-d\TH:i:s', $timestamp) . ($fraction ? substr(round($fraction, 2), 1) : '') . 'Z';
+        if (!$timestamp) {
+            $timestamp = microtime(true);
+        }
+
+        if (is_int($timestamp) || is_float($timestamp)) {
+            $fraction = $timestamp - floor($timestamp);
+            $this->{'@time'} = gmdate('Y-m-d\TH:i:s', floor($timestamp)) . ($fraction ? substr(round($fraction, 2), 1) : '') . 'Z';
+
+        } else {
+            $this->{'@time'} = $timestamp;
+        }
 
         return $this;
     }

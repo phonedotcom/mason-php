@@ -9,7 +9,7 @@ class File extends Base
      * @param string $title Title of the file
      * @param string $description Description of the file
      */
-    public function __construct($name, array $accept = [], $title = '', $description = '')
+    public function __construct($name, $accept = [], $title = '', $description = '')
     {
         $this->setName($name);
         if ($accept) {

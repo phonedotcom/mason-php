@@ -6,7 +6,7 @@ abstract class Base
     /**
      * @param array $properties List of properties to set
      */
-    public function __construct(array $properties = [])
+    public function __construct($properties = [])
     {
         $this->setProperties($properties);
     }
@@ -15,7 +15,7 @@ abstract class Base
      * @param array $properties List of properties to set
      * @return $this
      */
-    public function setProperties(array $properties)
+    public function setProperties($properties)
     {
         foreach ($properties as $name => $value) {
             $this->setProperty($name, $value);

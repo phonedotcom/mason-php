@@ -3,6 +3,25 @@ namespace PhoneCom\Mason\Builder\Components;
 
 class Controls extends Hash
 {
+    public function setProperties($properties = [])
+    {
+        foreach ($properties as $relation => $control) {
+            if (!$control instanceof Control) {
+                $properties = (array)$control;
+                if (!isset($properties['href'])) {
+                    throw new \InvalidArgumentException('Control has no href');
+                }
+                $href = $properties['href'];
+                unset($properties['href']);
+
+                $control = new Control($href, $properties);
+            }
+            $this->addControl($relation, $control);
+        }
+
+        return $this;
+    }
+
     /**
      * @param string $relation Link relation
      * @param string|Control $href URL or a Control instance
@@ -11,12 +30,7 @@ class Controls extends Hash
      */
     public function addControl($relation, $href, array $properties = [])
     {
-        if ($href instanceof Control) {
-            $control = $href;
-        } else {
-            $control = new Control($href, $properties);
-        }
-
+        $control = ($href instanceof Control ? $href : new Control($href, $properties));
         $this->{$relation} = $control;
 
         return $this;

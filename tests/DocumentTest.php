@@ -1,6 +1,7 @@
 <?php
 namespace PhoneCom\Mason\Tests;
 
+use PhoneCom\Mason\Builder\Child;
 use PhoneCom\Mason\Builder\Components\MasonNamespace;
 use PhoneCom\Mason\Builder\Document;
 
@@ -86,5 +87,46 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
         $obj->minimize();
 
         $this->assertObjectNotHasAttribute('@meta', $obj);
+    }
+
+    public function testCanInstantiateWithVanillaObjectHierarchy()
+    {
+        $obj1 = (new Document())
+            ->addControl('self', '/foo/bar/baz', ['title' => 'The baffle ball'])
+            ->addNamespace('pcom', 'http://example.com/relations/#')
+            ->addControl('pcom:razz', '/razz', [
+                'files' => [
+                    ['name' => 'avatar', 'accept' => ['image/*'], 'title' => 'Avatar', 'description' => 'Photo of granny']
+                ],
+                'title' => 'This is the non-minimized title',
+            ])
+            ->addMetaControl('down', '/handprints/145')
+            ->addMetaProperties([
+                '@title' => 'Yipee!',
+            ])
+            ->addMetaProperty('foo', 'bar')
+            ->setProperty('items', [
+                new Child(['foo' => 'baz', 'phone' => 'shibboleth'])
+            ])
+            ->setError('This hoodie doesn\'t fit!', [
+                '@code' => 'idk',
+                '@httpStatusCode' => 422,
+                '@messages' => [
+                    'Hood too small',
+                    'Zipper stuck',
+                    'Pocket too shallow'
+                ],
+                '@details' => 'This article of clothing is either too small or too large for the nerd who is wearing it',
+                '@id' => 849384832,
+                '@time' => '2015-07-17T18:37:59.52Z'
+            ])
+            ->sort(['@meta', '@controls', '@namespaces', '{data}']);
+
+        $obj1Json = json_encode($obj1);
+
+        $obj2 = new Document(json_decode($obj1Json));
+        $obj2Json = json_encode($obj2);
+
+        $this->assertEquals($obj1Json, $obj2Json);
     }
 }

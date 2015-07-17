@@ -24,6 +24,13 @@ class Control extends Base
         parent::__construct($properties);
     }
 
+    public function setProperties($properties)
+    {
+        foreach ($properties as $name => $value) {
+            $this->setProperty($name, $value);
+        }
+    }
+
     /**
      * @param string $href Hypermedia reference - a URI or URI template
      * @return $this
@@ -218,16 +225,19 @@ class Control extends Base
      */
     public function addFile($file)
     {
-        if (is_array($file)) {
-            $name = $file['name'];
-            unset($file['name']);
-            $properties = $file;
+        if (is_array($file) || is_object($file)) {
+
+            $properties = (array)$file;
+            $name = $properties['name'];
+            unset($properties['name']);
 
             $file = (new File($name))
                 ->setProperties($properties);
 
         } elseif (!$file instanceof File) {
-            throw new \InvalidArgumentException(sprintf('File must be instance of %s or an array of acceptable file properties', File::class));
+            throw new \InvalidArgumentException(
+                sprintf('File must be instance of %s or an array of acceptable file properties', File::class)
+            );
         }
 
         $this->files[] = $file;
