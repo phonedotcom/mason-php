@@ -27,10 +27,10 @@ class Document extends Child
      * @param bool $protected Whether to keep these properties when object is minimized
      * @return $this
      */
-    public function addMetaProperties(array $properties, $protected = false)
+    public function setMetaProperties(array $properties, $protected = false)
     {
         foreach ($properties as $property => $value) {
-            $this->addMetaProperty($property, $value, $protected);
+            $this->setMetaProperty($property, $value, $protected);
         }
 
         return $this;
@@ -42,7 +42,7 @@ class Document extends Child
      * @param bool $protected Whether to keep this property when object is minimized
      * @return $this
      */
-    public function addMetaProperty($name, $value, $protected = false)
+    public function setMetaProperty($name, $value, $protected = false)
     {
         $this->prepareMetaNode();
         $this->{'@meta'}->setProperty($name, $value, $protected);

@@ -72,10 +72,6 @@ class Error extends Child
      */
     public function setTime($timestamp)
     {
-        if (!$timestamp) {
-            $timestamp = microtime(true);
-        }
-
         if (is_int($timestamp) || is_float($timestamp)) {
             $fraction = $timestamp - floor($timestamp);
             $this->{'@time'} = gmdate('Y-m-d\TH:i:s', floor($timestamp)) . ($fraction ? substr(round($fraction, 2), 1) : '') . 'Z';

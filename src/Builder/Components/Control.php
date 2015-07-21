@@ -206,6 +206,17 @@ class Control extends Base
     }
 
     /**
+     * @param string $jsonFile Name of the multipart/form-data part to embed the JSON data in
+     * @return $this
+     */
+    public function setJsonFile($jsonFile)
+    {
+        $this->jsonFile = (string)$jsonFile;
+
+        return $this;
+    }
+
+    /**
      * @param array $files List of details about accepted input files e.g. in a multipart/form-data request. Items
      *                      in the array must be File objects or simple arrays with the needed properties in the
      *                      order specified in the constructor for the File object

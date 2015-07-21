@@ -123,7 +123,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
             'robot' => 'Huge',
             'alarm' => new Child()
         ]))
-            ->addMetaProperties([
+            ->setMetaProperties([
                 '@title' => 'Goodnight Moon',
                 '@description' => 'Howling at the wind',
                 'page_number' => 4

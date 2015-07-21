@@ -130,6 +130,11 @@ class ControlTest extends \PHPUnit_Framework_TestCase
         $this->runSetterTest('encoding', 'json');
     }
 
+    public function testCanSetJsonFile()
+    {
+        $this->runSetterTest('jsonFile', 'sprocket');
+    }
+
     public function testCanSetFiles()
     {
         $this->runSetterTest('files', [new File('avatar')]);

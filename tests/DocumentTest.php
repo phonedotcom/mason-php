@@ -24,7 +24,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
     public function testCanAddBulkMetaProperties()
     {
         $obj = new Document();
-        $obj->addMetaProperties([
+        $obj->setMetaProperties([
             'zowie' => 'bang',
             'glut' => 'rown'
         ]);
@@ -35,7 +35,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
     public function testCanAddMetaProperty()
     {
         $obj = new Document();
-        $obj->addMetaProperty('zowie', 'bang');
+        $obj->setMetaProperty('zowie', 'bang');
 
         $this->assertEquals('bang', $obj->{'@meta'}->zowie);
     }
@@ -83,7 +83,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
     public function testMetaDisappearsIfNoPropertiesOnMinimization()
     {
         $obj = new Document();
-        $obj->addMetaProperty('foo', 'bar');
+        $obj->setMetaProperty('foo', 'bar');
         $obj->minimize();
 
         $this->assertObjectNotHasAttribute('@meta', $obj);
@@ -101,10 +101,10 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
                 'title' => 'This is the non-minimized title',
             ])
             ->addMetaControl('down', '/handprints/145')
-            ->addMetaProperties([
+            ->setMetaProperties([
                 '@title' => 'Yipee!',
             ])
-            ->addMetaProperty('foo', 'bar')
+            ->setMetaProperty('foo', 'bar')
             ->setProperty('items', [
                 new Child(['foo' => 'baz', 'phone' => 'shibboleth'])
             ])
