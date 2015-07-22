@@ -17,14 +17,14 @@ class ControlsTest extends \PHPUnit_Framework_TestCase
     {
         $control = new Control('/path');
         $obj = new Controls;
-        $obj->addControl('self', $control);
+        $obj->setControl('self', $control);
         $this->assertEquals($control, $obj->self);
     }
 
     public function testCanAddControlByArray()
     {
         $obj = new Controls;
-        $obj->addControl('self', '/path', ['title' => 'Tofu']);
+        $obj->setControl('self', '/path', ['title' => 'Tofu']);
 
         $this->assertEquals('Tofu', $obj->self->title);
     }
@@ -32,7 +32,7 @@ class ControlsTest extends \PHPUnit_Framework_TestCase
     public function testCanRemoveControl()
     {
         $obj = new Controls;
-        $obj->addControl('self', '/path', ['title' => 'Tofu']);
+        $obj->setControl('self', '/path', ['title' => 'Tofu']);
 
         $obj->remove('self');
 

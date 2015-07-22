@@ -43,7 +43,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
     public function testCanAddMetaControl()
     {
         $obj = new Document();
-        $obj->addMetaControl('self', '/path');
+        $obj->setMetaControl('self', '/path');
         $this->assertEquals('/path', $obj->{'@meta'}->{'@controls'}->self->href);
     }
 
@@ -74,7 +74,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
     public function testCanMinimize()
     {
         $obj = new Document();
-        $obj->addControl('self', '/path', ['title' => 'My Title']);
+        $obj->setControl('self', '/path', ['title' => 'My Title']);
         $obj->minimize();
 
         $this->assertObjectNotHasAttribute('title', $obj->{'@controls'}->self);
@@ -92,15 +92,15 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
     public function testCanInstantiateWithVanillaObjectHierarchy()
     {
         $obj1 = (new Document())
-            ->addControl('self', '/foo/bar/baz', ['title' => 'The baffle ball'])
+            ->setControl('self', '/foo/bar/baz', ['title' => 'The baffle ball'])
             ->addNamespace('pcom', 'http://example.com/relations/#')
-            ->addControl('pcom:razz', '/razz', [
+            ->setControl('pcom:razz', '/razz', [
                 'files' => [
                     ['name' => 'avatar', 'accept' => ['image/*'], 'title' => 'Avatar', 'description' => 'Photo of granny']
                 ],
                 'title' => 'This is the non-minimized title',
             ])
-            ->addMetaControl('down', '/handprints/145')
+            ->setMetaControl('down', '/handprints/145')
             ->setMetaProperties([
                 '@title' => 'Yipee!',
             ])

@@ -105,8 +105,8 @@ class BaseTest extends \PHPUnit_Framework_TestCase
                 'robot' => 'Huge',
                 'alarm' => new Child()
             ]))
-            ->addControl('self', '/joker/silliness')
-            ->addControl('parent', '/joker')
+            ->setControl('self', '/joker/silliness')
+            ->setControl('parent', '/joker')
             ->sort($defaultSorting, $controlsSorting);
 
         $this->assertEquals(['robot', 'alarm', '@controls', 'city'], array_keys(get_object_vars($obj)));

@@ -57,10 +57,10 @@ class Document extends Child
      * @param bool $protected Whether to keep this control when minimized
      * @return $this
      */
-    public function addMetaControl($relation, $href, array $properties = [], $protected = false)
+    public function setMetaControl($relation, $href, array $properties = [], $protected = false)
     {
         $this->prepareMetaNode();
-        $this->{'@meta'}->addControl($relation, $href, $properties, $protected);
+        $this->{'@meta'}->setControl($relation, $href, $properties, $protected);
 
         return $this;
     }

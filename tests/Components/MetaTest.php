@@ -30,7 +30,7 @@ class MetaTest extends \PHPUnit_Framework_TestCase
     public function testCanAddControl()
     {
         $obj = new Meta();
-        $obj->addControl('self', '/path/to/nowhere');
+        $obj->setControl('self', '/path/to/nowhere');
         $this->assertEquals('/path/to/nowhere', $obj->{'@controls'}->self->href);
     }
 
@@ -52,8 +52,8 @@ class MetaTest extends \PHPUnit_Framework_TestCase
     public function testCanProtectControls()
     {
         $obj = new Meta();
-        $obj->addControl('self', '/over/the/rainbow', [], true);
-        $obj->addControl('up', '/over/the');
+        $obj->setControl('self', '/over/the/rainbow', [], true);
+        $obj->setControl('up', '/over/the');
         $obj->minimize();
         $this->assertObjectNotHasAttribute('up', $obj->{'@controls'});
         $this->assertEquals('/over/the/rainbow', $obj->{'@controls'}->self->href);
@@ -62,7 +62,7 @@ class MetaTest extends \PHPUnit_Framework_TestCase
     public function testRemovingAllControlsRemovesContainer()
     {
         $obj = new Meta();
-        $obj->addControl('self', '/over/the/rainbow');
+        $obj->setControl('self', '/over/the/rainbow');
         $obj->minimize();
         $this->assertObjectNotHasAttribute('@controls', $obj);
     }

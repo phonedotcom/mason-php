@@ -16,7 +16,7 @@ class Controls extends Hash
 
                 $control = new Control($href, $properties);
             }
-            $this->addControl($relation, $control);
+            $this->setControl($relation, $control);
         }
 
         return $this;
@@ -28,7 +28,7 @@ class Controls extends Hash
      * @param array $properties If $href is a string, list of additional properties to set
      * @return $this
      */
-    public function addControl($relation, $href, array $properties = [])
+    public function setControl($relation, $href, array $properties = [])
     {
         $control = ($href instanceof Control ? $href : new Control($href, $properties));
         $this->{$relation} = $control;

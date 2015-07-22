@@ -120,7 +120,7 @@ class Child extends Hash
                 throw new \InvalidArgumentException(sprintf('Invalid control "%s"', $relation));
             }
 
-            $this->addControl($relation, $href, $properties);
+            $this->setControl($relation, $href, $properties);
         }
 
         return $this;
@@ -132,10 +132,10 @@ class Child extends Hash
      * @param array $properties If $href is a URL, additional control properties to set
      * @return $this
      */
-    public function addControl($relation, $href, $properties = [])
+    public function setControl($relation, $href, $properties = [])
     {
         $this->prepareControlsNode();
-        $this->{'@controls'}->addControl($relation, $href, $properties);
+        $this->{'@controls'}->setControl($relation, $href, $properties);
 
         return $this;
     }

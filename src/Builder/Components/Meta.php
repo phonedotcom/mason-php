@@ -53,9 +53,9 @@ class Meta extends Child
      * @param bool $protected Whether to keep this control when minimized
      * @return $this
      */
-    public function addControl($relation, $href, $properties = [], $protected = false)
+    public function setControl($relation, $href, $properties = [], $protected = false)
     {
-        parent::addControl($relation, $href, $properties);
+        parent::setControl($relation, $href, $properties);
         if ($protected) {
             $this->protected[] = '@controls';
             $this->protectedControls[] = $relation;
