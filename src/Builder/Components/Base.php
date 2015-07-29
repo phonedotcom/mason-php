@@ -53,7 +53,6 @@ abstract class Base
     public function minimize()
     {
         foreach (get_object_vars($this) as $property => $value) {
-
             if ($value instanceof self) {
                 $value->minimize();
 
@@ -82,15 +81,19 @@ abstract class Base
      * is useful for standardizing the sequence of properties across several documents and for keeping the more
      * important properties higher up.
      *
-     * @param array $defaultOrder Preferred order of property names. Can include any Mason or custom property. Ordering will
-     *                     be applied at all levels within the document. Properties that are not found at a given
-     *                     level are gracefully ignored. Must include an element named "{data}". This is where all
-     *                     unspecified properties will be placed. All such properties will maintain the same order as
-     *                     they had before sorting.
+     * @param array $defaultOrder Preferred order of property names. Can include any Mason or custom property.
+     *                     Ordering will be applied at all levels within the document. Properties that are not found
+     *                     at a given level are gracefully ignored. Must include an element named "{data}". This is
+     *                     where all unspecified properties will be placed. All such properties will maintain the
+     *                     same order as  they had before sorting.
      * @return $this
      */
-    public function sort(array $defaultOrder, array $controlsOrder = null, array $metaOrder = null, array $errorOrder = null)
-    {
+    public function sort(
+        array $defaultOrder,
+        array $controlsOrder = null,
+        array $metaOrder = null,
+        array $errorOrder = null
+    ) {
         if (!in_array('{data}', $defaultOrder)) {
             throw new \InvalidArgumentException('Placeholder "{data}" not listed in $defaultOrder');
 
@@ -113,8 +116,13 @@ abstract class Base
         return $this;
     }
 
-    private function applySort($name, array &$defaultOrder, array &$controlsOrder, array &$metaOrder, array &$errorOrder)
-    {
+    private function applySort(
+        $name,
+        array &$defaultOrder,
+        array &$controlsOrder,
+        array &$metaOrder,
+        array &$errorOrder
+    ) {
         $data = self::getPublicProperties($this);
         foreach ($data as $property => $value) {
             if ($value instanceof self) {
@@ -132,7 +140,8 @@ abstract class Base
         // To prevent this, we need to make sure $name is a string when entering the switch below.
         //
         // For more discussion, see:
-        // http://stackoverflow.com/questions/2611932/php-5-2-12-interesting-switch-statement-bug-with-integers-and-strings
+        // http://stackoverflow.com/questions/2611932
+        //                          /php-5-2-12-interesting-switch-statement-bug-with-integers-and-strings
 
         switch ((string)$name) {
             case '@controls':
@@ -167,8 +176,13 @@ abstract class Base
         return $this;
     }
 
-    private function sortArray(array &$array, array &$defaultOrder, array &$controlsOrder, array &$metaOrder, array &$errorOrder)
-    {
+    private function sortArray(
+        array &$array,
+        array &$defaultOrder,
+        array &$controlsOrder,
+        array &$metaOrder,
+        array &$errorOrder
+    ) {
         foreach ($array as $index => &$value) {
             if ($value instanceof self) {
                 $value->applySort('', $defaultOrder, $controlsOrder, $metaOrder, $errorOrder);

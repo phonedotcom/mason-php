@@ -17,7 +17,6 @@ class Child extends Hash
     public function setProperties($properties)
     {
         foreach ($properties as $name => $value) {
-
             if ($name == '@controls') {
                 $controls = $value;
                 if (!$controls instanceof Controls) {

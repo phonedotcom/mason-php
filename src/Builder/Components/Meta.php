@@ -81,7 +81,8 @@ class Meta extends Child
     {
         if (isset($this->{'@controls'})) {
             $relationsToRemove = array_diff(
-                array_keys(get_object_vars($this->{'@controls'})), $this->protectedControls
+                array_keys(get_object_vars($this->{'@controls'})),
+                $this->protectedControls
             );
             foreach ($relationsToRemove as $relation) {
                 $this->{'@controls'}->remove($relation);
@@ -95,7 +96,9 @@ class Meta extends Child
     private function removeUnprotectedProperties()
     {
         $propertiesToRemove = array_diff(
-            array_keys(get_object_vars($this)), $this->protected, ['protected', 'protectedControls']
+            array_keys(get_object_vars($this)),
+            $this->protected,
+            ['protected', 'protectedControls']
         );
 
         foreach ($propertiesToRemove as $property) {

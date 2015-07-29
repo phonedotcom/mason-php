@@ -237,7 +237,6 @@ class Control extends Base
     public function addFile($file)
     {
         if (is_array($file) || is_object($file)) {
-
             $properties = (array)$file;
             $name = $properties['name'];
             unset($properties['name']);
@@ -285,7 +284,10 @@ class Control extends Base
             $control = (new Control($href, $properties));
 
         } elseif (!$control instanceof Control) {
-            throw new \InvalidArgumentException(sprintf('Control must be instance of %s or an array of acceptable control properties', Control::class));
+            throw new \InvalidArgumentException(sprintf(
+                'Control must be instance of %s or an array of acceptable control properties',
+                Control::class
+            ));
         }
 
         $this->alt[] = $control;

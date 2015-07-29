@@ -74,7 +74,8 @@ class Error extends Child
     {
         if (is_int($timestamp) || is_float($timestamp)) {
             $fraction = $timestamp - floor($timestamp);
-            $this->{'@time'} = gmdate('Y-m-d\TH:i:s', floor($timestamp)) . ($fraction ? substr(round($fraction, 2), 1) : '') . 'Z';
+            $this->{'@time'} = gmdate('Y-m-d\TH:i:s', floor($timestamp))
+                . ($fraction ? substr(round($fraction, 2), 1) : '') . 'Z';
 
         } else {
             $this->{'@time'} = $timestamp;
@@ -117,5 +118,4 @@ class Error extends Child
 
         return $this;
     }
-
 }

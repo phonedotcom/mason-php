@@ -46,5 +46,4 @@ class Controls extends Hash
 
         return $this;
     }
-
 }

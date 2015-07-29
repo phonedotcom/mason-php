@@ -24,5 +24,4 @@ class Namespaces extends Hash
 
         return $this;
     }
-
 }

@@ -1,7 +1,6 @@
 <?php
 
 if (!function_exists('array_is_sequential')) {
-
     function array_is_sequential($obj)
     {
         $last_key = -1;
