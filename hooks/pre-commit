@@ -54,9 +54,9 @@ while [[ $ERRORS -ne 0 ]]; do
         select CHOICE in "Auto-fix wherever possible" "Ignore this warning" "Cancel this commit"; do
             case $CHOICE in
                 Auto-fix*)
-                    echo "Auto-formatting classes and functions..."
-                    $PHPCBF $PHPCS_COMMON $CLASSES  --standard="hooks/phpcs.xml"
-                    git add $CLASSES
+                    echo "Auto-formatting..."
+                    $PHPCBF $PHPCS_COMMON $SFILES  --standard="hooks/phpcs.xml"
+                    git add $SFILES
                     break;;
 
                 Ignore*)
