@@ -26,8 +26,8 @@ $doc = new Document([
 ]);
 
 $doc->addMetaProperty('@title', 'Oscar the Grouch')
-    ->addProperty('clothing', 'Trash can')
-    ->addControl('self', 'http://example.com/characters/oscar');
+    ->setProperty('clothing', 'Trash can')
+    ->setControl('self', 'http://example.com/characters/oscar');
 
 echo json_encode($doc);
 ```
