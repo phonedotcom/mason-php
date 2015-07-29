@@ -1,0 +1,18 @@
+#!/bin/bash
+echo "*** $(basename $0) hook START ***"
+
+changedfiles=$(git diff-tree --no-commit-id --name-only HEAD@{1} HEAD)
+
+###############################################################################
+# Run Composer updates
+# Source: https://gist.github.com/digitaljhelms/7901283
+###############################################################################
+echo "Checking for changes to Composer dependencies..."
+if [[ "${changedfiles[*]}" =~ "composer.json" ]]; then
+    echo "Updating Composer dependencies"
+    composer install -vvv
+else
+	echo "None found"
+fi
+
+echo "*** $(basename $0) hook END ***"
