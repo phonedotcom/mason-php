@@ -18,60 +18,68 @@ fi
 
 SFILES=${SFILES:-$STAGED_FILES_CMD}
 
+for FILE in $SFILES; do
+    if [[ "${FILE: -4}" == ".php" ]]; then
+        CLASSES="$CLASSES $FILE"
+    fi
+done
+
 ###############################################################################
 # LINT CHECK
 ###############################################################################
 
-echo "Running PHP lint checking"
-for FILE in $SFILES; do
-    php -l $FILE 2>/dev/null | grep -v 'No syntax errors detected' | grep -v 'Errors parsing'
-    if [ ${PIPESTATUS[0]} != 0 ]; then
-        exit 1
-    fi
-done
+if [[ "$CLASSES" != "" ]]; then
+    echo "Running PHP lint checking"
+    for FILE in $CLASSES; do
+        php -l $FILE 2>/dev/null | grep -v 'No syntax errors detected' | grep -v 'Errors parsing'
+        if [ ${PIPESTATUS[0]} != 0 ]; then
+            exit 1
+        fi
+    done
+fi
 
 ###############################################################################
 # Coding Standards
 ###############################################################################
 
-PHPCS="./vendor/bin/phpcs"
-PHPCBF="./vendor/bin/phpcbf"
+if [[ "$CLASSES" != "" ]]; then
+    PHPCS="./vendor/bin/phpcs"
+    PHPCBF="./vendor/bin/phpcbf"
 
-# NOTE: Add the "-s" flag to include the names of any failing sniffs
-PHPCS_COMMON="--encoding=utf-8 --colors -p --report-width=120"
+    # NOTE: Add the "-s" flag to include the names of any failing sniffs
+    PHPCS_COMMON="--encoding=utf-8 --colors -p --report-width=120"
 
-ERRORS=1
-while [[ $ERRORS -ne 0 ]]; do
+    ERRORS=1
+    while [[ $ERRORS -ne 0 ]]; do
 
-    echo "Checking PSR-2 compliance"
-    $PHPCS $PHPCS_COMMON $SFILES  --standard="hooks/phpcs.xml"
-    ERRORS=${PIPESTATUS[0]}
+        echo "Checking PSR-2 compliance"
+        $PHPCS $PHPCS_COMMON $CLASSES  --standard="hooks/phpcs.xml"
+        ERRORS=${PIPESTATUS[0]}
 
-    if [ $ERRORS -ne 0 ]; then
-        exec < /dev/tty
-        export COLUMNS=30
-        echo "Found one or more PSR-2 coding standards issues. Please select an option."
-        select CHOICE in "Auto-fix wherever possible" "Ignore this warning" "Cancel this commit"; do
-            case $CHOICE in
-                Auto-fix*)
-                    echo "Auto-formatting..."
-                    $PHPCBF $PHPCS_COMMON $SFILES  --standard="hooks/phpcs.xml"
-                    git add $SFILES
-                    break;;
+        if [ $ERRORS -ne 0 ]; then
+            exec < /dev/tty
+            export COLUMNS=30
+            echo "Found one or more PSR-2 coding standards issues. Please select an option."
+            select CHOICE in "Auto-fix wherever possible" "Ignore this warning" "Cancel this commit"; do
+                case $CHOICE in
+                    Auto-fix*)
+                        echo "Auto-formatting..."
+                        $PHPCBF $PHPCS_COMMON $CLASSES  --standard="hooks/phpcs.xml"
+                        git add $CLASSES
+                        break;;
 
-                Ignore*)
-                    ERRORS=0
-                    break;;
+                    Ignore*)
+                        ERRORS=0
+                        break;;
 
-                Cancel*)
-                    exit 1
-                esac
-        done
-    else
-        echo "Done checking classes and functions"
-    fi
-done
+                    Cancel*)
+                        exit 1
+                    esac
+            done
+        else
+            echo "Done checking PSR-2 compliance"
+        fi
+    done
+fi
 
 cd "$ORIG_DIR"
-
-echo "*** $(basename $0) hook END ***"
