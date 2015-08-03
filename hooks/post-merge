@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "*** $(basename $0) hook START ***"
+echo "[$(basename $0) hook START]"
 
 changedfiles=$(git diff-tree --no-commit-id --name-only HEAD@{1} HEAD)
 
@@ -15,4 +15,4 @@ else
 	echo "None found"
 fi
 
-echo "*** $(basename $0) hook END ***"
+echo "[$(basename $0) hook END]"

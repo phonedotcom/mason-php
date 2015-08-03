@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "*** $(basename $0) hook START ***"
+echo "[$(basename $0) hook START]"
 
 ORIG_DIR="$(pwd)"
 PROJECT="$(git rev-parse --show-toplevel)"
@@ -83,3 +83,5 @@ if [[ "$CLASSES" != "" ]]; then
 fi
 
 cd "$ORIG_DIR"
+
+echo "[$(basename $0) hook END]"
