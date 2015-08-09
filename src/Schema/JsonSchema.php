@@ -1,35 +1,16 @@
 <?php
 namespace PhoneCom\Mason\Schema;
 
-class JsonSchema extends SubSchema
+class JsonSchema
 {
-    const DESCRIPTOR_URL = 'http://json-schema.org/draft-04/schema#';
-
-    /**
-     * You might be wondering why this constructor accepts two different arrays of properties.  We are in
-     * the process of merging two different JSON Schema libraries together.  The SubSchema class which this
-     * one extends is deprecated. But for now, we use a kludgy hack since the first constructor argument used
-     * to be something else but isn't needed anyway.
-     *
-     * For future-proofing, please use $properties and ignore $moreProperties.
-     *
-     * @param array $properties Properties to instantiate this schema with
-     * @param array $moreProperties Deprecated. Can also be an array of properties.
-     */
-    public function __construct($properties = null, $moreProperties = [])
+    public static function make($params = [])
     {
-        parent::__construct(null, $moreProperties);
-
-        if ($properties) {
-            $this->setParams($properties);
-        }
+        return new static($params);
     }
 
-    public static function getName()
+    public function __construct($params = [])
     {
-        $className = get_called_class();
-        $name = substr($className, strrpos($className, '\\') + 1);
-        return snake_case($name, '-');
+        $this->setParams($params);
     }
 
     public function setParams($params)
@@ -77,7 +58,7 @@ class JsonSchema extends SubSchema
 
         return $this;
     }
-
+    
     public function setDescription($value)
     {
         $this->description = $value;
@@ -88,6 +69,20 @@ class JsonSchema extends SubSchema
     public function setType($value)
     {
         $this->type = $value;
+
+        return $this;
+    }
+
+    public function setMaxProperties($number)
+    {
+        $this->maxProperties = $number;
+
+        return $this;
+    }
+
+    public function setMinProperties($number)
+    {
+        $this->minProperties = $number;
 
         return $this;
     }
@@ -255,35 +250,5 @@ class JsonSchema extends SubSchema
     private static function getPublicProperties(self $object)
     {
         return get_object_vars($object);
-    }
-
-    public function setMaxProperties($number)
-    {
-        $this->maxProperties = $number;
-
-        return $this;
-    }
-
-    public function setMinProperties($number)
-    {
-        $this->minProperties = $number;
-
-        return $this;
-    }
-
-    /**
-     * @deprecated Use setDefinition() instead
-     */
-    public function addDefinition($name, $params = [])
-    {
-        return $this->setDefinition($name, $params);
-    }
-
-    /**
-     * @deprecated Use setParams() instead
-     */
-    public function addParams(array $params = [])
-    {
-        return $this->setParams($params);
     }
 }
