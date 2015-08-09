@@ -1,6 +1,9 @@
 <?php
 namespace PhoneCom\Mason\Schema;
 
+/**
+ * @deprecated Use JsonSchema now.
+ */
 class SubSchema
 {
     public static function make($request = null, $properties = [])
