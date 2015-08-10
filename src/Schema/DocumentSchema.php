@@ -3,14 +3,17 @@ namespace PhoneCom\Mason\Schema;
 
 class DocumentSchema extends JsonSchema
 {
-    public function __construct($request = null, $properties = [])
+    public function __construct($properties = [])
     {
-        parent::__construct($request, $properties);
+        parent::__construct($properties);
+
+        // TODO: It's breaking MVC to require a controller as a dependency on a model. Find some other way
+        // TODO: to get a $ref to the @meta, @namespaces, and @controls definitions.
 
         $this
-            ->setOptionalProperty('@namespaces', 'object', ['title' => 'Mason namespaces'])
-            ->setOptionalProperty('@meta', 'object', ['title' => 'Mason meta properties'])
-            ->setOptionalProperty('@controls', 'object', ['title' => 'Mason controls']);
+            ->setProperty('@namespaces', 'object', ['title' => 'Mason namespaces'])
+            ->setProperty('@meta', 'object', ['title' => 'Mason meta properties'])
+            ->setProperty('@controls', 'object', ['title' => 'Mason controls']);
     }
 
     public function setId($id)
@@ -30,8 +33,7 @@ class DocumentSchema extends JsonSchema
             $this->properties->{'@meta'}->properties = new \stdClass;
         }
 
-        $property = SubSchema::make()
-            ->setType($type);
+        $property = JsonSchema::make(['type' => $type]);
 
         if ($title) {
             $property->setTitle($title);
@@ -50,7 +52,7 @@ class DocumentSchema extends JsonSchema
         return $this;
     }
 
-    protected function setControlSchema($name, SubSchema $control)
+    protected function setControlSchema($name, JsonSchema $control)
     {
         if (!isset($this->properties->{'@controls'})) {
             $this->setOptionalProperty('@controls', 'object', ['title' => 'Mason controls']);

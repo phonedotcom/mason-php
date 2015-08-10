@@ -149,9 +149,12 @@ class JsonSchema
 
     public function setOptionalPropertyRef($name, $url)
     {
-        return $this->setProperty($name, new self([
-            '$ref' => $url
-        ]));
+        return $this->setPropertyRef($name, $url);
+    }
+
+    public function setPropertyRef($name, $url)
+    {
+        return $this->setProperty($name, new self(['$ref' => $url]));
     }
 
     public function setProperty($name, $type, $params = [])
