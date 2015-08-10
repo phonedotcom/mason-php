@@ -8,9 +8,9 @@ class DocumentSchema extends JsonSchema
         parent::__construct($request, $properties);
 
         $this
-            ->setOptionalProperty('@namespaces', 'object', 'Mason namespaces')
-            ->setOptionalProperty('@meta', 'object', 'Mason meta properties')
-            ->setOptionalProperty('@controls', 'Mason controls');
+            ->setOptionalProperty('@namespaces', 'object', ['title' => 'Mason namespaces'])
+            ->setOptionalProperty('@meta', 'object', ['title' => 'Mason meta properties'])
+            ->setOptionalProperty('@controls', 'object', ['title' => 'Mason controls']);
     }
 
     public function setId($id)
@@ -23,7 +23,7 @@ class DocumentSchema extends JsonSchema
     public function setMetaProperty($name, $type, $title = '', $extraParams = [])
     {
         if (!isset($this->properties->{'@meta'})) {
-            $this->setOptionalProperty('@meta', 'object', 'Mason meta properties');
+            $this->setOptionalProperty('@meta', 'object', ['title' => 'Mason meta properties']);
         }
 
         if (!isset($this->properties->{'@meta'}->properties)) {
@@ -53,7 +53,7 @@ class DocumentSchema extends JsonSchema
     protected function setControlSchema($name, SubSchema $control)
     {
         if (!isset($this->properties->{'@controls'})) {
-            $this->setOptionalProperty('@controls', 'object', 'Mason controls');
+            $this->setOptionalProperty('@controls', 'object', ['title' => 'Mason controls']);
         }
 
         if (!isset($this->properties->{'@controls'}->properties)) {
