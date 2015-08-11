@@ -10,9 +10,6 @@ trait AssertionsTrait
 {
     public function assertValidSchema($data, $schema, $refResolverPath = null)
     {
-        //$retriever = new UriRetriever;
-        //$schema = $retriever->retrieve('file://' . base_path('public/json-schema/draft-04/schema'));
-
         if ($refResolverPath) {
             $retriever = new UriRetriever();
             $refResolver = new RefResolver($retriever);

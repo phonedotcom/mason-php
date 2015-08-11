@@ -3,6 +3,7 @@ namespace PhoneCom\Mason\Schema;
 
 class DocumentSchema extends JsonSchema
 {
+    /*
     private static $sharedSchemaRefUrlPrefix = '';
     private static $masonSchemaRefUrlPrefix = '';
 
@@ -21,15 +22,28 @@ class DocumentSchema extends JsonSchema
     {
         return self::$sharedSchemaRefUrlPrefix . "#definitions/$name";
     }
+    */
 
     public function __construct($properties = [])
     {
         parent::__construct($properties);
 
+        $masonSchemaUrl = 'https://raw.githubusercontent.com/JornWildt/Mason/master'
+            . '/Documentation/Schema/Mason-draft-2.json';
+
         $this
-            ->setPropertyRef('@namespaces', static::getMasonSchemaRefUrl('namespaces'))
-            ->setPropertyRef('@meta', static::getMasonSchemaRefUrl('meta'))
-            ->setPropertyRef('@controls', static::getMasonSchemaRefUrl('controls'))
+            ->setPropertyRef('@namespaces', "$masonSchemaUrl#/properties/@namespaces")
+            ->setProperty('@meta', JsonSchema::make([
+                'allOf' => [
+                    ['$ref' => "$masonSchemaUrl#/properties/@meta"]
+                ]
+            ]))
+            ->setProperty('@error', JsonSchema::make([
+                'allOf' => [
+                    ['$ref' => "$masonSchemaUrl#/properties/@error"]
+                ]
+            ]))
+            ->setPropertyRef('@controls', "$masonSchemaUrl#/properties/@controls")
             ->setAdditionalProperties(false);
     }
 
