@@ -20,6 +20,14 @@ class Control extends Base
      */
     public function __construct($href, array $properties = [])
     {
+        if (is_object($href)) {
+            $href = (array)$href;
+        }
+        if (is_array($href)) {
+            $properties = $href;
+            $href = $properties['href'];
+            unset($properties['href']);
+        }
         $this->setHref($href);
         parent::__construct($properties);
     }

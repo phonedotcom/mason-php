@@ -127,11 +127,11 @@ class JsonSchema
         return $this;
     }
 
-    public function setRequiredPropertyRef($name, $url)
+    public function setRequiredPropertyRef($name, $url, $params = [])
     {
-        return $this->setRequiredProperty($name, new self([
-            '$ref' => $url
-        ]));
+        $params['$ref'] = $url;
+
+        return $this->setRequiredProperty($name, new self($params));
     }
 
     public function setRequiredProperty($name, $type, $params = [])
@@ -147,14 +147,16 @@ class JsonSchema
         return $this->setProperty($name, $type, $params);
     }
 
-    public function setOptionalPropertyRef($name, $url)
+    public function setOptionalPropertyRef($name, $url, $params = [])
     {
-        return $this->setPropertyRef($name, $url);
+        return $this->setPropertyRef($name, $url, $params);
     }
 
-    public function setPropertyRef($name, $url)
+    public function setPropertyRef($name, $url, $params = [])
     {
-        return $this->setProperty($name, new self(['$ref' => $url]));
+        $params['$ref'] = $url;
+
+        return $this->setProperty($name, new self($params));
     }
 
     public function setProperty($name, $type, $params = [])
