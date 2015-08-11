@@ -3,17 +3,34 @@ namespace PhoneCom\Mason\Schema;
 
 class DocumentSchema extends JsonSchema
 {
+    private static $sharedSchemaRefUrlPrefix = '';
+    private static $masonSchemaRefUrlPrefix = '';
+
+    public static function setSharedSchemaRefUrlPrefixes(array $prefixes)
+    {
+        self::$sharedSchemaRefUrlPrefix = (string)@$prefixes['shared'];
+        self::$masonSchemaRefUrlPrefix = (string)@$prefixes['mason'];
+    }
+
+    protected static function getMasonSchemaRefUrl($name)
+    {
+        return self::$masonSchemaRefUrlPrefix . "#definitions/$name";
+    }
+
+    protected static function getSharedSchemaRefUrl($name)
+    {
+        return self::$sharedSchemaRefUrlPrefix . "#definitions/$name";
+    }
+
     public function __construct($properties = [])
     {
         parent::__construct($properties);
 
-        // TODO: It's breaking MVC to require a controller as a dependency on a model. Find some other way
-        // TODO: to get a $ref to the @meta, @namespaces, and @controls definitions.
-
         $this
-            ->setProperty('@namespaces', 'object', ['title' => 'Mason namespaces'])
-            ->setProperty('@meta', 'object', ['title' => 'Mason meta properties'])
-            ->setProperty('@controls', 'object', ['title' => 'Mason controls']);
+            ->setPropertyRef('@namespaces', static::getMasonSchemaRefUrl('namespaces'))
+            ->setPropertyRef('@meta', static::getMasonSchemaRefUrl('meta'))
+            ->setPropertyRef('@controls', static::getMasonSchemaRefUrl('controls'))
+            ->setAdditionalProperties(false);
     }
 
     public function setId($id)
