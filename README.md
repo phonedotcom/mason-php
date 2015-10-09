@@ -60,9 +60,13 @@ Mason-PHP was built to help promote Mason adoption within the PHP community, and
 
 ## Installation
 
-This project has no runtime dependencies. If you want to run the tests or write more, you will need to run `composer install`.
+This project is integrated with [Composer](https://getcomposer.org/).  You can put it in your `composer.json` as a dependency:
 
-TODO (Better installation coming soon via Composer/Packagist)
+```
+"require": {
+    "phonecom/mason-laravel": "1.*"
+}
+```
 
 ## Usage
 
