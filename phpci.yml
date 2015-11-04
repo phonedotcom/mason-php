@@ -12,9 +12,6 @@ test:
     php_unit:
         config:
             - "phpunit.xml"
-        directory:
-            - "tests/"
-        coverage: "coverage"
     php_mess_detector:
         allow_failures: true
     php_code_sniffer:
