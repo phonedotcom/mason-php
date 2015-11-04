@@ -11,4 +11,6 @@ setup:
 test:
     php_unit:
         config:
-            - "phpunit-coverage-html.xml"
+            - "phpunit.xml"
+        coverage:
+            - "coverage/"
