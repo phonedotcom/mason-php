@@ -12,5 +12,4 @@ test:
     php_unit:
         config:
             - "phpunit.xml"
-        coverage:
-            - "coverage/"
+        coverage: "coverage/"
