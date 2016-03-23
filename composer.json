@@ -1,11 +1,11 @@
 {
-  "name": "phonecom/mason-php",
+  "name": "phonedotcom/mason-php",
   "description": "PHP library for generating Mason hypermedia documents",
   "license": "MIT",
   "keywords": ["mason", "hypermedia", "rest"],
   "support": {
-    "issues": "https://github.com/Phone-com/mason-php/issues",
-    "source": "https://github.com/Phone-com/mason-php"
+    "issues": "https://github.com/phonedotcom/mason-php/issues",
+    "source": "https://github.com/phonedotcom/mason-php"
   },
   "authors": [
     {
