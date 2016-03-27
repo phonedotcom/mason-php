@@ -125,13 +125,26 @@ class Child extends Hash
         return $this;
     }
 
+    public function __call($method, $arguments)
+    {
+        if (preg_match("/^set(\w+)Control\$/", $method, $match)) {
+            array_unshift($arguments, lcfirst($match[1]));
+
+            return call_user_func_array([$this, 'setControl'], $arguments);
+        }
+
+        throw new \RuntimeException(sprintf('Call to undefined method %s::%s()', static::class, $method));
+    }
+
     /**
-     * @param string $relation Link relation describing the control
-     * @param string|Control $href URL or a Control instance
+     * @param string|MasonControllableInterface $relation Link relation describing the control,
+     *     or MasonControllableInterface instance
+     * @param string|Control $href URL, or a Control instance, or a name of a class that implements
+     *     MasonControllableInterface
      * @param array $properties If $href is a URL, additional control properties to set
      * @return $this
      */
-    public function setControl($relation, $href, $properties = [])
+    public function setControl($relation, $href = null, $properties = [])
     {
         $this->prepareControlsNode();
         $this->{'@controls'}->setControl($relation, $href, $properties);

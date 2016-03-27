@@ -3,6 +3,11 @@ namespace PhoneCom\Mason\Builder\Components;
 
 abstract class Base
 {
+    public static function make($properties = [])
+    {
+        return new static($properties);
+    }
+
     /**
      * @param array $properties List of properties to set
      */

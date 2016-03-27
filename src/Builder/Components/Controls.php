@@ -1,6 +1,8 @@
 <?php
 namespace PhoneCom\Mason\Builder\Components;
 
+use PhoneCom\Mason\Builder\MasonControllableInterface;
+
 class Controls extends Hash
 {
     public function setProperties($properties = [])
@@ -23,14 +25,39 @@ class Controls extends Hash
     }
 
     /**
-     * @param string $relation Link relation
-     * @param string|Control $href URL or a Control instance
+     * @param string $relation Link relation describing the control, or a name of a class
+     *     that implements MasonControllableInterface
+     * @param string|Control $href URL, or a Control instance, or a name of a class that implements
+     *     MasonControllableInterface
      * @param array $properties If $href is a string, list of additional properties to set
      * @return $this
      */
-    public function setControl($relation, $href, array $properties = [])
+    public function setControl($relation, $href = null, array $properties = [])
     {
-        $control = ($href instanceof Control ? $href : new Control($href, $properties));
+        if (class_exists($relation)) {
+            $className = $relation;
+            if (!(new $className) instanceof MasonControllableInterface) {
+                throw new \Exception(sprintf('Class must implement MasonControllableInterface: %s', $className));
+            }
+
+            $relation = $className::getRelation();
+            $properties = $href;
+            $control = $className::getMasonControl($properties);
+
+        } elseif ($href instanceof Control) {
+            $control = $href;
+
+        } elseif (is_string($href) && class_exists($href)) {
+            $className = $href;
+            if (!(new $className) instanceof MasonControllableInterface) {
+                throw new \Exception(sprintf('Class must implement MasonControllableInterface: %s', $className));
+            }
+            $control = $className::getMasonControl($properties);
+
+        } else {
+            $control = new Control($href, $properties);
+        }
+
         $this->{$relation} = $control;
 
         return $this;

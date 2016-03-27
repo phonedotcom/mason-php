@@ -2,6 +2,7 @@
 namespace PhoneCom\Mason\Builder\Components;
 
 use PhoneCom\Mason\Builder\Child;
+use PhoneCom\Mason\Builder\MasonControllableInterface;
 
 class Meta extends Child
 {
@@ -47,17 +48,28 @@ class Meta extends Child
     }
 
     /**
-     * @param string $relation Link relation describing the control
-     * @param string|Control $href URL or a Control instance
+     * @param string $relation Link relation describing the control, or a name of a class
+     *     that implements MasonControllableInterface
+     * @param string|Control $href URL, or a Control instance, or a name of a class that implements
+     *     MasonControllableInterface
      * @param array $properties If $href is a URL, additional control properties to set
      * @param bool $protected Whether to keep this control when minimized
      * @return $this
      */
-    public function setControl($relation, $href, $properties = [], $protected = false)
+    public function setControl($relation, $href = null, $properties = [], $protected = false)
     {
         parent::setControl($relation, $href, $properties);
         if ($protected) {
             $this->protected[] = '@controls';
+
+            if (class_exists($relation)) {
+                $className = $relation;
+                if (!(new $className) instanceof MasonControllableInterface) {
+                    throw new \Exception(sprintf('Class must implement MasonControllableInterface: %s', $className));
+                }
+                $relation = $className::getRelation();
+            }
+
             $this->protectedControls[] = $relation;
         }
 
