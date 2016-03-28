@@ -41,7 +41,7 @@ class Controls extends Hash
             }
 
             $relation = $className::getRelation();
-            $properties = $href;
+            $properties = (is_null($href) ? [] : $href);
             $control = $className::getMasonControl($properties);
 
         } elseif ($href instanceof Control) {
