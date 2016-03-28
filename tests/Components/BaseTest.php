@@ -1,8 +1,8 @@
 <?php
-namespace PhoneCom\Mason\Tests\Components;
+namespace Phonedotcom\Mason\Tests\Components;
 
-use PhoneCom\Mason\Builder\Child;
-use PhoneCom\Mason\Builder\Document;
+use Phonedotcom\Mason\Builder\Child;
+use Phonedotcom\Mason\Builder\Document;
 
 class BaseTest extends \PHPUnit_Framework_TestCase
 {
@@ -66,7 +66,12 @@ class BaseTest extends \PHPUnit_Framework_TestCase
     public function testErrorSortingRequiresDataPlaceholder()
     {
         $obj = new Document();
-        $obj->sort(['robot', 'alarm', '{data}'], ['self', 'profile', '{data}'], ['@description', '@title', '{data}'], ['@id']);
+        $obj->sort(
+            ['robot', 'alarm', '{data}'],
+            ['self', 'profile', '{data}'],
+            ['@description', '@title', '{data}'],
+            ['@id']
+        );
     }
 
     public function testCanSortChildObject()
@@ -172,5 +177,4 @@ class BaseTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals(['drink', 'food'], array_keys(get_object_vars($child)), "Index $index");
         }
     }
-
 }

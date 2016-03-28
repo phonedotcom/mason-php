@@ -1,12 +1,12 @@
 <?php
-namespace PhoneCom\Mason\Builder;
+namespace Phonedotcom\Mason\Builder;
 
-use PhoneCom\Mason\Builder\Components\Control;
-use PhoneCom\Mason\Builder\Components\Controls;
-use PhoneCom\Mason\Builder\Components\Hash;
-use PhoneCom\Mason\Builder\Components\Namespaces;
-use PhoneCom\Mason\Builder\Components\Meta;
-use PhoneCom\Mason\Builder\Components\Error;
+use Phonedotcom\Mason\Builder\Components\Control;
+use Phonedotcom\Mason\Builder\Components\Controls;
+use Phonedotcom\Mason\Builder\Components\Hash;
+use Phonedotcom\Mason\Builder\Components\Namespaces;
+use Phonedotcom\Mason\Builder\Components\Meta;
+use Phonedotcom\Mason\Builder\Components\Error;
 
 class Child extends Hash
 {

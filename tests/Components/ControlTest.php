@@ -1,8 +1,8 @@
 <?php
-namespace PhoneCom\Mason\Tests\Components;
+namespace Phonedotcom\Mason\Tests\Components;
 
-use PhoneCom\Mason\Builder\Components\Control;
-use PhoneCom\Mason\Builder\Components\File;
+use Phonedotcom\Mason\Builder\Components\Control;
+use Phonedotcom\Mason\Builder\Components\File;
 
 class ControlTest extends \PHPUnit_Framework_TestCase
 {
@@ -234,5 +234,4 @@ class ControlTest extends \PHPUnit_Framework_TestCase
         $obj->setProperty($property, $value);
         $this->assertEquals($value, $obj->{$property}, sprintf('Failed setting or retrieving "%s"', $property));
     }
-
 }

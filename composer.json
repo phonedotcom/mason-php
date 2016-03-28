@@ -23,7 +23,7 @@
   },
   "autoload": {
     "psr-4": {
-      "PhoneCom\\Mason\\": "src"
+      "Phonedotcom\\Mason\\": "src"
     },
     "files": [
       "src/helpers.php"

@@ -1,5 +1,5 @@
 <?php
-namespace PhoneCom\Mason\Tests\Components;
+namespace Phonedotcom\Mason\Tests\Components;
 
 class HashTest extends \PHPUnit_Framework_TestCase
 {
@@ -22,5 +22,4 @@ class HashTest extends \PHPUnit_Framework_TestCase
         $obj->setProperty('custom', 'This value');
         $this->assertEquals('This value', $obj->custom);
     }
-
 }

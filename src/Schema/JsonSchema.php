@@ -1,5 +1,5 @@
 <?php
-namespace PhoneCom\Mason\Schema;
+namespace Phonedotcom\Mason\Schema;
 
 class JsonSchema
 {

@@ -1,10 +1,10 @@
 <?php
-namespace PhoneCom\Mason\Builder;
+namespace Phonedotcom\Mason\Builder;
 
-use PhoneCom\Mason\Builder\Components\Error;
-use PhoneCom\Mason\Builder\Components\MasonNamespace;
-use PhoneCom\Mason\Builder\Components\Meta;
-use PhoneCom\Mason\Builder\Components\Namespaces;
+use Phonedotcom\Mason\Builder\Components\Error;
+use Phonedotcom\Mason\Builder\Components\MasonNamespace;
+use Phonedotcom\Mason\Builder\Components\Meta;
+use Phonedotcom\Mason\Builder\Components\Namespaces;
 
 class Document extends Child
 {

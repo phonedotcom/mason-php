@@ -1,8 +1,8 @@
 <?php
-namespace PhoneCom\Mason\Tests;
+namespace Phonedotcom\Mason\Tests;
 
-use PhoneCom\Mason\Builder\Child;
-use PhoneCom\Mason\Builder\Components\Control;
+use Phonedotcom\Mason\Builder\Child;
+use Phonedotcom\Mason\Builder\Components\Control;
 
 class ChildTest extends \PHPUnit_Framework_TestCase
 {

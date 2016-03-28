@@ -1,5 +1,5 @@
 <?php
-namespace PhoneCom\Mason\Builder\Components;
+namespace Phonedotcom\Mason\Builder\Components;
 
 class Hash extends Base
 {

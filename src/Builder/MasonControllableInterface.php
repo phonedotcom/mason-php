@@ -1,6 +1,6 @@
 <?php
 
-namespace PhoneCom\Mason\Builder;
+namespace Phonedotcom\Mason\Builder;
 
 interface MasonControllableInterface
 {

@@ -1,7 +1,7 @@
 <?php
-namespace PhoneCom\Mason\Tests\Components;
+namespace Phonedotcom\Mason\Tests\Components;
 
-use PhoneCom\Mason\Builder\Components\Meta;
+use Phonedotcom\Mason\Builder\Components\Meta;
 
 class MetaTest extends \PHPUnit_Framework_TestCase
 {

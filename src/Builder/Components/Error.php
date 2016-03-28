@@ -1,7 +1,7 @@
 <?php
-namespace PhoneCom\Mason\Builder\Components;
+namespace Phonedotcom\Mason\Builder\Components;
 
-use PhoneCom\Mason\Builder\Child;
+use Phonedotcom\Mason\Builder\Child;
 
 class Error extends Child
 {

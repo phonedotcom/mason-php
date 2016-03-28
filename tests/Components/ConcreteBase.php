@@ -1,7 +1,7 @@
 <?php
-namespace PhoneCom\Mason\Tests\Components;
+namespace Phonedotcom\Mason\Tests\Components;
 
-use PhoneCom\Mason\Builder\Components\Base;
+use Phonedotcom\Mason\Builder\Components\Base;
 
 class ConcreteBase extends Base
 {

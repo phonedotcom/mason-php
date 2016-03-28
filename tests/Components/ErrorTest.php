@@ -1,7 +1,7 @@
 <?php
-namespace PhoneCom\Mason\Tests\Components;
+namespace Phonedotcom\Mason\Tests\Components;
 
-use PhoneCom\Mason\Builder\Components\Error;
+use Phonedotcom\Mason\Builder\Components\Error;
 
 class ErrorTest extends \PHPUnit_Framework_TestCase
 {
@@ -70,5 +70,4 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
         $obj->setProperty($property, $value);
         $this->assertEquals($value, $obj->{$property}, sprintf('Failed setting or retrieving "%s"', $property));
     }
-
 }

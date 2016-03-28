@@ -1,7 +1,7 @@
 <?php
-namespace PhoneCom\Mason\Tests\Components;
+namespace Phonedotcom\Mason\Tests\Components;
 
-use PhoneCom\Mason\Builder\Components\MasonNamespace;
+use Phonedotcom\Mason\Builder\Components\MasonNamespace;
 
 class MasonNamespaceTest extends \PHPUnit_Framework_TestCase
 {
@@ -17,5 +17,4 @@ class MasonNamespaceTest extends \PHPUnit_Framework_TestCase
         $obj->setName('http://google.com');
         $this->assertEquals('http://google.com', $obj->name);
     }
-
 }

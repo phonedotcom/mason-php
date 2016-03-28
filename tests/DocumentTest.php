@@ -1,9 +1,9 @@
 <?php
-namespace PhoneCom\Mason\Tests;
+namespace Phonedotcom\Mason\Tests;
 
-use PhoneCom\Mason\Builder\Child;
-use PhoneCom\Mason\Builder\Components\MasonNamespace;
-use PhoneCom\Mason\Builder\Document;
+use Phonedotcom\Mason\Builder\Child;
+use Phonedotcom\Mason\Builder\Components\MasonNamespace;
+use Phonedotcom\Mason\Builder\Document;
 
 class DocumentTest extends \PHPUnit_Framework_TestCase
 {
@@ -96,7 +96,8 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
             ->addNamespace('pcom', 'http://example.com/relations/#')
             ->setControl('pcom:razz', '/razz', [
                 'files' => [
-                    ['name' => 'avatar', 'accept' => ['image/*'], 'title' => 'Avatar', 'description' => 'Photo of granny']
+                    ['name' => 'avatar', 'accept' => ['image/*'],
+                        'title' => 'Avatar', 'description' => 'Photo of granny']
                 ],
                 'title' => 'This is the non-minimized title',
             ])
@@ -116,7 +117,8 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
                     'Zipper stuck',
                     'Pocket too shallow'
                 ],
-                '@details' => 'This article of clothing is either too small or too large for the nerd who is wearing it',
+                '@details' => 'This article of clothing is either too small or too large for the nerd who is '
+                    . 'wearing it',
                 '@id' => 849384832,
                 '@time' => '2015-07-17T18:37:59.52Z'
             ])

@@ -1,7 +1,7 @@
 <?php
-namespace PhoneCom\Mason\Tests\Components;
+namespace Phonedotcom\Mason\Tests\Components;
 
-use PhoneCom\Mason\Builder\Components\Hash;
+use Phonedotcom\Mason\Builder\Components\Hash;
 
 class ConcreteHash extends Hash
 {

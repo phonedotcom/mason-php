@@ -1,8 +1,8 @@
 <?php
-namespace PhoneCom\Mason\Builder\Components;
+namespace Phonedotcom\Mason\Builder\Components;
 
-use PhoneCom\Mason\Builder\Child;
-use PhoneCom\Mason\Builder\MasonControllableInterface;
+use Phonedotcom\Mason\Builder\Child;
+use Phonedotcom\Mason\Builder\MasonControllableInterface;
 
 class Meta extends Child
 {

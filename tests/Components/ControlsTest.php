@@ -1,9 +1,9 @@
 <?php
-namespace PhoneCom\Mason\Tests\Components;
+namespace Phonedotcom\Mason\Tests\Components;
 
-use PhoneCom\Mason\Builder\Components\Control;
-use PhoneCom\Mason\Builder\Components\Controls;
-use PhoneCom\Mason\Builder\Components\File;
+use Phonedotcom\Mason\Builder\Components\Control;
+use Phonedotcom\Mason\Builder\Components\Controls;
+use Phonedotcom\Mason\Builder\Components\File;
 
 class ControlsTest extends \PHPUnit_Framework_TestCase
 {
@@ -38,5 +38,4 @@ class ControlsTest extends \PHPUnit_Framework_TestCase
 
         $this->assertObjectNotHasAttribute('self', $obj);
     }
-
 }
