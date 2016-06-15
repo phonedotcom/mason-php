@@ -32,7 +32,7 @@ class Controls extends Hash
      * @param array $properties If $href is a string, list of additional properties to set
      * @return $this
      */
-    public function setControl($relation, $href = null, array $properties = [])
+    public function setControl($relation, $href = null, array $properties = [], array $schemaUrlProperties = [])
     {
         if (class_exists($relation)) {
             $className = $relation;
@@ -42,18 +42,17 @@ class Controls extends Hash
 
             $relation = $className::getRelation();
             $properties = (is_null($href) ? [] : $href);
-            $control = $className::getMasonControl($properties);
+            $schemaUrlProperties = $properties;
 
+            $control = $className::getMasonControl($properties, $schemaUrlProperties);
         } elseif ($href instanceof Control) {
             $control = $href;
-
         } elseif (is_string($href) && class_exists($href)) {
             $className = $href;
             if (!(new $className) instanceof MasonControllableInterface) {
                 throw new \Exception(sprintf('Class must implement MasonControllableInterface: %s', $className));
             }
-            $control = $className::getMasonControl($properties);
-
+            $control = $className::getMasonControl($properties, $schemaUrlProperties);
         } else {
             $control = new Control($href, $properties);
         }

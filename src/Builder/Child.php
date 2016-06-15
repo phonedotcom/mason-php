@@ -23,15 +23,12 @@ class Child extends Hash
                     $controls = new Controls($value);
                 }
                 $this->setProperty($name, $controls);
-
             } elseif ($name == '@meta') {
                 $meta = ($value instanceof Meta ? $value : new Meta($value));
                 $this->setProperty($name, $meta);
-
             } elseif ($name == '@namespaces') {
                 $namespaces = ($value instanceof Namespaces ? $value : new Namespaces($value));
                 $this->setProperty($name, $namespaces);
-
             } elseif ($name == '@error') {
                 $error = $value;
                 if (!$value instanceof Error) {
@@ -41,19 +38,15 @@ class Child extends Hash
                     $error = new Error($message, $properties);
                 }
                 $this->setProperty($name, $error);
-
             } elseif (is_array($value)) {
                 if (array_is_sequential($value)) {
                     $value = $this->prepareSequentialArray($value);
                     $this->setProperty($name, $value);
-
                 } else {
                     $this->setProperty($name, new self($value));
                 }
-
             } elseif (is_object($value)) {
                 $this->setProperty($name, new self($value));
-
             } else {
                 $this->setProperty($name, $value);
             }
@@ -67,7 +60,6 @@ class Child extends Hash
         foreach ($value as $index => $subvalue) {
             if (is_object($subvalue) && !$subvalue instanceof Base) {
                 $value[$index] = new self($subvalue);
-
             } elseif (is_array($subvalue)) {
                 if (array_is_sequential($subvalue)) {
                     $value[$index] = $this->prepareSequentialArray($subvalue);
@@ -88,7 +80,6 @@ class Child extends Hash
         if (substr($name, 0, 1) == '@') {
             $setter = 'set' . ucfirst(substr($name, 1));
             $this->{$setter}($value);
-
         } else {
             $this->{$name} = $value;
         }
@@ -109,12 +100,10 @@ class Child extends Hash
             if ($control instanceof Control) {
                 $href = $control;
                 $properties = [];
-
             } elseif (is_array($control) || is_object($control)) {
                 $control = (array)$control;
                 $href = $control['href'];
                 $properties = (@$control['properties'] ?: []);
-
             } else {
                 throw new \InvalidArgumentException(sprintf('Invalid control "%s"', $relation));
             }
@@ -144,10 +133,10 @@ class Child extends Hash
      * @param array $properties If $href is a URL, additional control properties to set
      * @return $this
      */
-    public function setControl($relation, $href = null, $properties = [])
+    public function setControl($relation, $href = null, $properties = [], $schemaUrlProperties = [])
     {
         $this->prepareControlsNode();
-        $this->{'@controls'}->setControl($relation, $href, $properties);
+        $this->{'@controls'}->setControl($relation, $href, $properties, $schemaUrlProperties);
 
         return $this;
     }
